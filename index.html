@@ -1,28 +1,48 @@
 <!DOCTYPE html>
-<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+<html ng-app="myAssignmentApp">
 	<head>
-		<title>Hank Quinlan, Horrible Cop</title>
+		<title>Module-1-Coding-Assignment</title>
 	</head>
 	<body>
-		<nav>
-    		<ul>
-        		<li><a href="/">Home</a></li>
-	        	<li><a href="/about">About</a></li>
-        		<li><a href="/cv">CV</a></li>
-        		<li><a href="/blog">Blog</a></li>
-    		</ul>
-		</nav>
-		<div class="container">
-    		<div class="blurb">
-        		<h1>Hi there, I'm Hank Quinlan!</h1>
-				<p>I'm best known as the horrible cop from <em>A Touch of Evil</em> Don't trust me. <a href="/about">Read more about my life...</a></p>
-    		</div><!-- /.blurb -->
-		</div><!-- /.container -->
-		<footer>
-    		<ul>
-        		<li><a href="mailto:hankquinlanhub@gmail.com">email</a></li>
-        		<li><a href="https://github.com/hankquinlan">github.com/hankquinlan</a></li>
-			</ul>
-		</footer>
+		<div ng-controller="myAssignmentController">
+		    <p><input type="text" style="width:360px; height: 30px;" ng-model="myLunch"/></p>
+		    <input type="button" value="Check If Too Much" ng-click="checkMyLunch($event, myLunch)" />
+		</div>
 	</body>
 </html>
+<script>
+    (function () {
+        'use strict';
+
+        angular.module("myAssignmentApp", [])
+
+        .controller('myAssignmentController', ['$scope', function ($scope) {
+            $scope.checkMyLunch = function (e, lunch) {
+                e.preventDefault();
+                
+                if (lunch) {
+                    let arrayOfLunch = lunch.split(",");
+                    let lunchCount = 0;
+
+                    for (let i = 0; i < arrayOfLunch.length; i++) {
+                        if (arrayOfLunch[i]) {
+                            lunchCount++;
+                        }
+                    }
+
+                    if (lunchCount === 0) {
+                        alert("Please enter data first");
+                    }else if (lunchCount <= 3) {
+                        alert("Enjoy!");
+                    } else {
+                        alert("Too much!");
+                    }
+                } else {
+                    alert("Please enter data first");
+                }
+            }
+        }])
+
+    })();
+</script>
